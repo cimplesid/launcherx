@@ -7,11 +7,16 @@ import 'package:launcherx/Utils/permission_handler.dart';
 class MyApps extends GetxController {
   List apps = [];
   var wallpaper = Uint8List(0).obs;
+  var show = false.obs;
   @override
   void onInit() async {
     super.onInit();
     getWallpaper();
     _getAppList();
+  }
+
+  change(val) {
+    show.value = val;
   }
 
   void _getAppList() {
@@ -23,8 +28,9 @@ class MyApps extends GetxController {
   getWallpaper() async {
     var per = await permision.checkPermission();
     if (!per) permision.requestPermission();
-    final imageData = await LauncherAssist.getWallpaper();
-    wallpaper.value = imageData;
+    LauncherAssist.getWallpaper().then((a) {
+      wallpaper.value = a;
+    });
   }
 
   void refrehAppList() {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launcher_assist/launcher_assist.dart';
 import 'package:launcherx/Utils/permission_handler.dart';
-import 'package:launcherx/Utils/swipe_detector.dart';
 import 'package:launcherx/controllers/apps.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -13,53 +12,47 @@ class AppsScreeen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SwipeDetector(
-        onSwipeDown: () {
-          print('sas');
-          Get.back();
-        },
-        child: Stack(
-          children: <Widget>[
-            AppWIdget(),
+      body: Stack(
+        children: <Widget>[
+          AppWIdget(),
+          Positioned(
+            top: 0,
+            left: 20,
+            child: SafeArea(
+              child: Tooltip(
+                message: "back",
+                child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          if (permision.permissionStatus != PermissionStatus.granted)
             Positioned(
               top: 0,
-              left: 20,
+              right: 20,
               child: SafeArea(
                 child: Tooltip(
-                  message: "back",
+                  message: "Click this to allow storage permission",
                   child: GestureDetector(
                     onTap: () {
-                      Get.back();
+                      apps.getWallpaper();
                     },
                     child: Icon(
-                      Icons.arrow_back_ios,
+                      Icons.storage,
                       color: Colors.red,
                     ),
                   ),
                 ),
               ),
             ),
-            if (permision.permissionStatus != PermissionStatus.granted)
-              Positioned(
-                top: 0,
-                right: 20,
-                child: SafeArea(
-                  child: Tooltip(
-                    message: "Click this to allow storage permission",
-                    child: GestureDetector(
-                      onTap: () {
-                        apps.getWallpaper();
-                      },
-                      child: Icon(
-                        Icons.storage,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -83,7 +76,6 @@ class AppWIdget extends StatelessWidget {
         children: List.generate(
           apps.apps.length,
           (index) {
-            print(apps.apps[index]['label']);
             return GestureDetector(
               child: CircleAvatar(
                 backgroundImage: apps.apps[index]["icon"] != null
