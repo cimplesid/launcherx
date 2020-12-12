@@ -1,21 +1,28 @@
-import 'package:device_apps/device_apps.dart';
 import 'package:get/get.dart';
+import 'package:launcher_assist/launcher_assist.dart';
+import 'package:launcherx/Utils/permission_handler.dart';
 
 class MyApps extends GetxController {
-  RxList<Application> apps = [].obs;
-
+  List apps = [];
+  var wallpaper;
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    getWallpaper();
     _getAppList();
   }
 
   void _getAppList() {
-    DeviceApps.getInstalledApplications(
-      onlyAppsWithLaunchIntent: true,
-      includeSystemApps: false,
-      includeAppIcons: true,
-    ).then((value) => this.apps.assignAll(value));
+    LauncherAssist.getAllApps().then((var apps) {
+      this.apps = apps;
+    });
+  }
+
+  getWallpaper() async {
+    var per = await permision.checkPermission();
+    if (!per) permision.requestPermission();
+    final imageData = await LauncherAssist.getWallpaper();
+    wallpaper = imageData;
   }
 
   void refrehAppList() {
