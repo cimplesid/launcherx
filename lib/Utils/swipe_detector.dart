@@ -53,6 +53,7 @@ class SwipeDetector extends StatelessWidget {
   final Function() onSwipeLeft;
   final Function() onSwipeRight;
   final SwipeConfiguration swipeConfiguration;
+  final VoidCallback longpress, onPress, ondouble;
 
   SwipeDetector(
       {@required this.child,
@@ -60,7 +61,10 @@ class SwipeDetector extends StatelessWidget {
       this.onSwipeDown,
       this.onSwipeLeft,
       this.onSwipeRight,
-      SwipeConfiguration swipeConfiguration})
+      SwipeConfiguration swipeConfiguration,
+      this.longpress,
+      this.onPress,
+      this.ondouble})
       : this.swipeConfiguration = swipeConfiguration == null
             ? SwipeConfiguration()
             : swipeConfiguration;
@@ -77,6 +81,9 @@ class SwipeDetector extends StatelessWidget {
 
     return GestureDetector(
       child: child,
+      onLongPress: longpress,
+      onDoubleTap: ondouble,
+      onTap: onPress,
       onVerticalDragStart: (dragDetails) {
         startVerticalDragDetails = dragDetails;
       },

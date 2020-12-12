@@ -83,6 +83,7 @@ class AppWIdget extends StatelessWidget {
         children: List.generate(
           apps.apps.length,
           (index) {
+            print(apps.apps[index]['label']);
             return GestureDetector(
               child: CircleAvatar(
                 backgroundImage: apps.apps[index]["icon"] != null
