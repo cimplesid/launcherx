@@ -16,7 +16,9 @@ class HomeScreen extends StatelessWidget {
         children: [
           SwipeDetector(
             ondouble: () {
-              launch('tel:');
+              // launch('tel:');
+              
+              LauncherAssist.launchApp('com.android.contacts');
             },
             onPress: () => wall.change(false),
             longpress: () => wall.change(true),
