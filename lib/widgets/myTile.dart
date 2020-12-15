@@ -16,7 +16,7 @@ class MyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: wTitle ?? Text(title),
-      subtitle: wSubTitle ?? Text(subTitle),
+      subtitle: wSubTitle ?? subTitle == null ? SizedBox() : Text(subTitle),
       leading: leading,
       trailing: trailing,
     );

@@ -5,11 +5,10 @@ import 'package:launcherx/Utils/swipe_detector.dart';
 import 'package:launcherx/controllers/apps.dart';
 import 'package:launcherx/controllers/colbutton.dart';
 import 'package:launcherx/screens/all_apps.dart';
+import 'package:launcherx/screens/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   final wall = Get.put(MyApps());
-
-  openWidgets() {}
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,7 @@ class HomeScreen extends StatelessWidget {
               ColButton(
                 title: 'Widgets',
                 icon: Icons.widgets,
-                onTap: openWidgets,
+                onTap: () => Get.to(Widgets()),
               ),
             ],
           ),
