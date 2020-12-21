@@ -64,10 +64,10 @@ class AppWIdget extends StatefulWidget {
 }
 
 class _AppWIdgetState extends State<AppWIdget> {
-  List<dynamic> displayApps = Get.put(MyApps()).apps;
+  var displayApps = Get.put(MyApps());
   final TextEditingController _searchController = TextEditingController();
+  bool displaySearchResult = false;
 
-  // search bar on the top
   Widget buildSearchBar() {
     return Padding(
       padding: EdgeInsets.fromLTRB(40, 8, 8, 8),
@@ -84,33 +84,23 @@ class _AppWIdgetState extends State<AppWIdget> {
           ),
           controller: _searchController,
           onChanged: (value) {
-            _upDateAppList(query: _searchController.text);
+            setState(() {
+              if (value.isEmpty)
+                displaySearchResult = false;
+              else
+                displaySearchResult = true;
+            });
+            displayApps.updateAppList(_searchController.text);
           },
         ),
       ),
     );
   }
 
-  // this function will update the displayApps list with the searched apps only
-  void _upDateAppList({String query}) {
-    query = query.trim().toLowerCase();
-    var _allApps = Get.put(MyApps()).apps;
-    var _reqApp = [];
-    _allApps.forEach((app) {
-      if (app['label'].toString().toLowerCase().contains(query)) {
-        _reqApp.add(app);
-      }
-    });
-    setState(() {
-      this.displayApps = _reqApp;
-    });
-  }
-
-  // this will build the GridView of the app
-  GridView buildApps() {
-    List<GridTile> appList = [];
-    displayApps.forEach((app) {
-      appList.add(
+  List _getAppWidgetList(var appList) {
+    List<GridTile> _reqApp = [];
+    appList.forEach((app) {
+      _reqApp.add(
         GridTile(
           child: GestureDetector(
             child: CircleAvatar(
@@ -124,7 +114,27 @@ class _AppWIdgetState extends State<AppWIdget> {
         ),
       );
     });
+    return _reqApp;
+  }
 
+  Widget buildSearchResult() {
+    List<GridTile> _appList = _getAppWidgetList(displayApps.filteredApps);
+    return Container(
+      color: Colors.grey.withOpacity(0.9),
+      child: GridView.count(
+        shrinkWrap: true,
+        crossAxisCount: 8,
+        mainAxisSpacing: 5,
+        childAspectRatio: 0.9,
+        crossAxisSpacing: 4,
+        physics: BouncingScrollPhysics(),
+        children: _appList,
+      ),
+    );
+  }
+
+  GridView buildApps() {
+    List<GridTile> _appList = _getAppWidgetList(displayApps.apps);
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 8,
@@ -132,20 +142,25 @@ class _AppWIdgetState extends State<AppWIdget> {
       childAspectRatio: 0.9,
       crossAxisSpacing: 4,
       physics: BouncingScrollPhysics(),
-      children: appList,
+      children: _appList,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    displayApps
+    displayApps.apps
         .sort((a, b) => a['label'].toString().compareTo(b['label'].toString()));
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.0),
       body: ListView(
         children: [
           buildSearchBar(),
-          buildApps(),
+          Stack(
+            children: [
+              buildApps(),
+              displaySearchResult ? buildSearchResult() : Text(''),
+            ],
+          ),
         ],
       ),
     );

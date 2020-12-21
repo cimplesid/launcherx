@@ -6,6 +6,8 @@ import 'package:launcherx/Utils/permission_handler.dart';
 
 class MyApps extends GetxController {
   List apps = [];
+  RxList<dynamic> filteredApps = [].obs;
+
   var wallpaper = Uint8List(0).obs;
   var show = false.obs;
   @override
@@ -17,6 +19,18 @@ class MyApps extends GetxController {
 
   change(val) {
     show.value = val;
+  }
+
+  void updateAppList(String query) {
+    query = query.trim().toLowerCase();
+    if (query.isEmpty) return;
+    if (apps == []) _getAppList();
+    filteredApps.clear();
+    this.apps.forEach((app) {
+      if (app['label'].toString().toLowerCase().contains(query)) {
+        this.filteredApps.add(app);
+      }
+    });
   }
 
   void _getAppList() {
