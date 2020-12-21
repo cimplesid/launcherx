@@ -5,6 +5,7 @@ import 'package:launcherx/Utils/swipe_detector.dart';
 import 'package:launcherx/controllers/apps.dart';
 import 'package:launcherx/controllers/colbutton.dart';
 import 'package:launcherx/screens/all_apps.dart';
+import 'package:launcherx/screens/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           SwipeDetector(
             ondouble: () {
               // launch('tel:');
-              
+
               LauncherAssist.launchApp('com.android.contacts');
             },
             onPress: () => wall.change(false),
@@ -65,6 +66,7 @@ class HomeScreen extends StatelessWidget {
               ColButton(
                 title: 'Settings',
                 icon: Icons.settings,
+                onTap: () => Get.to(SettingsScreen()),
               ),
               ColButton(
                 title: 'Widgets',
