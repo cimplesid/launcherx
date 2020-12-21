@@ -58,39 +58,110 @@ class AppsScreeen extends StatelessWidget {
   }
 }
 
-class AppWIdget extends StatelessWidget {
-  final apps = Get.put(MyApps());
+class AppWIdget extends StatefulWidget {
+  @override
+  _AppWIdgetState createState() => _AppWIdgetState();
+}
+
+class _AppWIdgetState extends State<AppWIdget> {
+  var displayApps = Get.put(MyApps());
+  final TextEditingController _searchController = TextEditingController();
+  bool displaySearchResult = false;
+
+  Widget buildSearchBar() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(40, 8, 8, 8),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          color: Colors.grey.withOpacity(0.6),
+        ),
+        child: TextField(
+          decoration: InputDecoration(
+            disabledBorder: InputBorder.none,
+            hintText: "Search",
+            contentPadding: EdgeInsets.only(left: 10.0),
+          ),
+          controller: _searchController,
+          onChanged: (value) {
+            setState(() {
+              if (value.isEmpty)
+                displaySearchResult = false;
+              else
+                displaySearchResult = true;
+            });
+            displayApps.updateAppList(_searchController.text);
+          },
+        ),
+      ),
+    );
+  }
+
+  List _getAppWidgetList(var appList) {
+    List<GridTile> _reqApp = [];
+    appList.forEach((app) {
+      _reqApp.add(
+        GridTile(
+          child: GestureDetector(
+            child: CircleAvatar(
+              backgroundImage:
+                  app["icon"] != null ? MemoryImage(app["icon"]) : null,
+              radius: 30.0,
+              child: app["icon"] == null ? Text(app["label"][0]) : Text(""),
+            ),
+            onTap: () => LauncherAssist.launchApp(app["package"]),
+          ),
+        ),
+      );
+    });
+    return _reqApp;
+  }
+
+  Widget buildSearchResult() {
+    List<GridTile> _appList = _getAppWidgetList(displayApps.filteredApps);
+    return Container(
+      color: Colors.grey.withOpacity(0.9),
+      child: GridView.count(
+        shrinkWrap: true,
+        crossAxisCount: 8,
+        mainAxisSpacing: 5,
+        childAspectRatio: 0.9,
+        crossAxisSpacing: 4,
+        physics: BouncingScrollPhysics(),
+        children: _appList,
+      ),
+    );
+  }
+
+  GridView buildApps() {
+    List<GridTile> _appList = _getAppWidgetList(displayApps.apps);
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 8,
+      mainAxisSpacing: 5,
+      childAspectRatio: 0.9,
+      crossAxisSpacing: 4,
+      physics: BouncingScrollPhysics(),
+      children: _appList,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    apps.apps
+    displayApps.apps
         .sort((a, b) => a['label'].toString().compareTo(b['label'].toString()));
-    return Container(
-      padding: EdgeInsets.fromLTRB(30, 35, 30, 0),
-      child: GridView.count(
-        crossAxisCount: 8,
-        mainAxisSpacing: 5,
-        childAspectRatio: 9 / 10,
-        crossAxisSpacing: 4,
-        physics: BouncingScrollPhysics(),
-        children: List.generate(
-          apps.apps.length,
-          (index) {
-            return GestureDetector(
-              child: CircleAvatar(
-                backgroundImage: apps.apps[index]["icon"] != null
-                    ? MemoryImage(apps.apps[index]["icon"])
-                    : null,
-                radius: 30,
-                child: apps.apps[index]["icon"] == null
-                    ? Text(apps.apps[index]["label"][0])
-                    : null,
-              ),
-              onTap: () =>
-                  LauncherAssist.launchApp(apps.apps[index]["package"]),
-            );
-          },
-        ),
+    return Scaffold(
+      backgroundColor: Colors.white.withOpacity(0.0),
+      body: ListView(
+        children: [
+          buildSearchBar(),
+          Stack(
+            children: [
+              buildApps(),
+              displaySearchResult ? buildSearchResult() : Text(''),
+            ],
+          ),
+        ],
       ),
     );
   }
