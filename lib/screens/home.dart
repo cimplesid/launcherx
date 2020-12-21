@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
               ColButton(
                 title: 'Settings',
                 icon: Icons.settings,
-                onTap: () => Get.to(Settings()),
+                onTap: () => Get.to(SettingsScreen()),
               ),
               ColButton(
                 title: 'Widgets',
