@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launcherx/models/models.dart';
-import 'package:launcherx/widgets/myTile.dart';
+import 'package:launcherx/widgets/my_tile.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:launcher_assist/launcher_assist.dart';
 import 'package:launcherx/Utils/swipe_detector.dart';
 import 'package:launcherx/controllers/apps.dart';
-import 'package:launcherx/controllers/colbutton.dart';
+import 'package:launcherx/controllers/col_button.dart';
 import 'package:launcherx/screens/all_apps.dart';
 import 'package:launcherx/screens/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,9 +16,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           SwipeDetector(
             ondouble: () {
-              // launch('tel:');
-
-              LauncherAssist.launchApp('com.android.contacts');
+              launch('tel:');
             },
             onPress: () => wall.change(false),
             longpress: () => wall.change(true),
@@ -33,7 +30,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Obx(() {
-            if (wall.show.value)
+            if (wall.showWallaper.value)
               return Positioned(bottom: 0, child: bottomSheet());
             return SizedBox();
           })

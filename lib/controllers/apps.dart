@@ -7,9 +7,9 @@ import 'package:launcherx/Utils/permission_handler.dart';
 class MyApps extends GetxController {
   List apps = [];
   RxList<dynamic> filteredApps = [].obs;
-
   var wallpaper = Uint8List(0).obs;
-  var show = false.obs;
+  var showWallaper = false.obs;
+  get showSearchResult => (filteredApps.length > 0).obs;
   @override
   void onInit() async {
     super.onInit();
@@ -18,24 +18,26 @@ class MyApps extends GetxController {
   }
 
   change(val) {
-    show.value = val;
+    showWallaper.value = val;
   }
 
-  void updateAppList(String query) {
-    query = query.trim().toLowerCase();
-    if (query.isEmpty) return;
-    if (apps == []) _getAppList();
+  void searchApp(String query) {
+    assert(query != null);
+    assert(apps.isNotEmpty);
+    filteredApps.assignAll(this
+        .apps
+        .where((app) => app['label'].toString().toLowerCase().contains(query)));
+  }
+
+  clearFilteredApps() {
     filteredApps.clear();
-    this.apps.forEach((app) {
-      if (app['label'].toString().toLowerCase().contains(query)) {
-        this.filteredApps.add(app);
-      }
-    });
   }
 
   void _getAppList() {
     LauncherAssist.getAllApps().then((var apps) {
       this.apps = apps;
+      this.apps.sort(
+          (a, b) => a['label'].toString().compareTo(b['label'].toString()));
     });
   }
 
