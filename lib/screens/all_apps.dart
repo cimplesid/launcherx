@@ -31,7 +31,7 @@ class AppsScreeen extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(child: SearchAppWidget(appController: appController))
+            Expanded(child: SearchAppWidget(appController: appController)),
           ],
         ),
         Stack(

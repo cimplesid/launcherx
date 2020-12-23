@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:launcherx/Utils/swipe_detector.dart';
 import 'package:launcherx/controllers/apps.dart';
 import 'package:launcherx/controllers/col_button.dart';
+import 'package:launcherx/controllers/icon_size_controller.dart';
 import 'package:launcherx/screens/all_apps.dart';
 import 'package:launcherx/screens/settings.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:launcherx/models/models.dart';
+import 'package:launcherx/screens/icon_style.dart';
 import 'package:launcherx/widgets/my_tile.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -19,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
                 MyTile(
                   wTitle: Text("App Drawer"),
                   subTitle: 'Drawerstyle, dackground color, and more',
-                  onTap: () {},
+                  onTap: () => Get.to(IconStyle()),
                 ),
                 MyTile(
                   title: "Look and Feel",
