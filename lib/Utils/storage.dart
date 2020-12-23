@@ -20,9 +20,10 @@ class StorageHelper {
   }
 
   _updateSetting() {
-    print('updating');
-    settings = Settings.fromJson(box.read(_currrentSettings)) ??
-        Settings.fromJson(defaultSettings);
+    var data = box.read(_currrentSettings);
+    settings = data != null
+        ? Settings.fromJson(box.read(_currrentSettings))
+        : Settings.fromJson(defaultSettings);
     settingController.updateSetting(settings);
   }
 }

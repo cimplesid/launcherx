@@ -7,7 +7,7 @@ class AppWidget extends StatelessWidget {
   final appController;
 
   AppWidget({Key key, this.appController}) : super(key: key);
-  SettingController settingController = Get.find();
+  final SettingController settingController = Get.find();
 
   List _getAppWidgetList(var appList) {
     List<GridTile> _reqApp = [];
@@ -24,11 +24,7 @@ class AppWidget extends StatelessWidget {
                 color: Colors.transparent,
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: app["icon"] != null
-                      ? MemoryImage(
-                          app["icon"],
-                        )
-                      : null,
+                  image: app["icon"] != null ? MemoryImage(app["icon"]) : null,
                 ),
               ),
             ),
