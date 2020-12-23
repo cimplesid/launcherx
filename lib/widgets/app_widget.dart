@@ -1,41 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:launcher_assist/launcher_assist.dart';
-import 'package:launcherx/controllers/icon_size_controller.dart';
+import 'package:launcherx/controllers/settings.dart';
 
 class AppWidget extends StatelessWidget {
   final appController;
 
-  const AppWidget({Key key, this.appController}) : super(key: key);
+  AppWidget({Key key, this.appController}) : super(key: key);
+  SettingController settingController = Get.find();
 
   List _getAppWidgetList(var appList) {
-    final IconSize iconSize = Get.put(IconSize());
-
     List<GridTile> _reqApp = [];
     appList.forEach((app) {
       _reqApp.add(
         GridTile(
           child: GestureDetector(
-            child: GetBuilder<IconSize>(
-              builder: (_) {
-                print(iconSize.radiusValue());
-                return Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(iconSize.radiusValue()),
-                    color: Colors.transparent,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: app["icon"] != null
-                          ? MemoryImage(
-                              app["icon"],
-                            )
-                          : null,
-                    ),
-                  ),
-                );
-              },
+            child: Container(
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                    settingController.setting.value.appDrawer.iconLayout.shape),
+                color: Colors.transparent,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: app["icon"] != null
+                      ? MemoryImage(
+                          app["icon"],
+                        )
+                      : null,
+                ),
+              ),
             ),
             onTap: () => LauncherAssist.launchApp(app["package"]),
           ),

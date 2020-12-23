@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:launcherx/models/models.dart';
 import 'package:launcherx/screens/icon_style.dart';
 import 'package:launcherx/widgets/my_tile.dart';
 
@@ -20,7 +19,8 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 MyTile(
                   wTitle: Text("App Drawer"),
-                  subTitle: 'Drawerstyle, dackground color, and more',
+                  subTitle: 'Drawerstyle, background color, and more',
+                  //TODO:navigate to another page where we have multiple option for drawer laout button and icon config and then navigate to this page
                   onTap: () => Get.to(IconStyle()),
                 ),
                 MyTile(
@@ -29,8 +29,8 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () {},
                 ),
                 MyTile(
-                  title: 'Guesture Input',
-                  subTitle: 'Swip up, Swip down, Double Tap',
+                  title: 'Gesture Input',
+                  subTitle: 'Swipe up, Swipe down, Double Tap',
                   onTap: () {},
                 ),
                 MyTile(

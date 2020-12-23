@@ -1,43 +1,65 @@
 //designer
 // {
-//     "app_drawer":{
-//         "drawerStyle":"",
-//         "background_color":"",
-//         "background_transparency":"",
-//         "icon_layout":{
-//             "size":12,
-//             "isLabelOn":true,
-//             "fontSize":12,
-//             "color":"",
-//             "shapeType":""
-//         }
-//         },
-//     "looks_feel":{
-//         "app_accent":"",
-//         "show_notification_bar":false,
-//         "transparent_notification_bar":false,
-//         "notification_bar_color":"",
-//         "appsearch_bg_color":""
-//     },
-//     "gesture_input":{
-//         "swipe_up":"",
-//         "swipe_down":"",
-//         "double_tap":""
-
-//     },
-//     "backup_imports":{
-//         "paths":["dsa"]
+// "app_drawer":{
+//     "drawerStyle":"",
+//     "background_color":"",
+//     "background_transparency":"",
+//     "icon_layout":{
+//         "size":12,
+//         "isLabelOn":true,
+//         "fontSize":12,
+//         "color":"",
+//         "shape":""
 //     }
+//     },
+// "looks_feel":{
+//     "app_accent":"",
+//     "show_notification_bar":false,
+//     "transparent_notification_bar":false,
+//     "notification_bar_color":"",
+//     "appsearch_bg_color":""
+// },
+// "gesture_input":{
+//     "swipe_up":"",
+//     "swipe_down":"",
+//     "double_tap":""
+
+// },
+// "backup_imports":{
+//     "paths":["dsa"]
+// }
 // }
 // To parse this JSON data, do
 //
 //     final settings = settingsFromJson(jsonString);
 
-import 'dart:convert';
-//TODO:make all colors with their type
-Settings settingsFromJson(String str) => Settings.fromJson(json.decode(str));
+//TODO:change default if model changes
 
-String settingsToJson(Settings data) => json.encode(data.toJson());
+const defaultSettings = {
+  "app_drawer": {
+    "drawerStyle": "",
+    "background_color": "",
+    "background_transparency": "",
+    "icon_layout": {
+      "size": 12,
+      "isLabelOn": true,
+      "fontSize": 12,
+      "color": "",
+      "shape": 0.0
+    }
+  },
+  "looks_feel": {
+    "app_accent": "",
+    "show_notification_bar": false,
+    "transparent_notification_bar": false,
+    "notification_bar_color": "",
+    "appsearch_bg_color": ""
+  },
+  "gesture_input": {"swipe_up": "", "swipe_down": "", "double_tap": ""},
+  "backup_imports": {
+    "paths": ["dsa"]
+  }
+};
 
 class Settings {
   Settings({
@@ -52,7 +74,7 @@ class Settings {
   GestureInput gestureInput;
   BackupImports backupImports;
 
-  factory Settings.fromJson(Map<String, dynamic> json) => Settings(
+  factory Settings.fromJson(json) => Settings(
         appDrawer: AppDrawer.fromJson(json["app_drawer"]),
         looksFeel: LooksFeel.fromJson(json["looks_feel"]),
         gestureInput: GestureInput.fromJson(json["gesture_input"]),
@@ -80,7 +102,7 @@ class AppDrawer {
   String backgroundTransparency;
   IconLayout iconLayout;
 
-  factory AppDrawer.fromJson(Map<String, dynamic> json) => AppDrawer(
+  factory AppDrawer.fromJson(json) => AppDrawer(
         drawerStyle: json["drawerStyle"],
         backgroundColor: json["background_color"],
         backgroundTransparency: json["background_transparency"],
@@ -101,21 +123,21 @@ class IconLayout {
     this.isLabelOn,
     this.fontSize,
     this.color,
-    this.shapeType,
+    this.shape,
   });
 
   int size;
   bool isLabelOn;
   int fontSize;
   String color;
-  String shapeType;
+  double shape = 0.0;
 
-  factory IconLayout.fromJson(Map<String, dynamic> json) => IconLayout(
+  factory IconLayout.fromJson(json) => IconLayout(
         size: json["size"],
         isLabelOn: json["isLabelOn"],
         fontSize: json["fontSize"],
         color: json["color"],
-        shapeType: json["shapeType"],
+        shape: json["shape"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -123,7 +145,7 @@ class IconLayout {
         "isLabelOn": isLabelOn,
         "fontSize": fontSize,
         "color": color,
-        "shapeType": shapeType,
+        "shape": shape,
       };
 }
 
@@ -134,7 +156,7 @@ class BackupImports {
 
   List<String> paths;
 
-  factory BackupImports.fromJson(Map<String, dynamic> json) => BackupImports(
+  factory BackupImports.fromJson(json) => BackupImports(
         paths: List<String>.from(json["paths"].map((x) => x)),
       );
 
@@ -154,7 +176,7 @@ class GestureInput {
   String swipeDown;
   String doubleTap;
 
-  factory GestureInput.fromJson(Map<String, dynamic> json) => GestureInput(
+  factory GestureInput.fromJson(json) => GestureInput(
         swipeUp: json["swipe_up"],
         swipeDown: json["swipe_down"],
         doubleTap: json["double_tap"],
@@ -182,7 +204,7 @@ class LooksFeel {
   String notificationBarColor;
   String appsearchBgColor;
 
-  factory LooksFeel.fromJson(Map<String, dynamic> json) => LooksFeel(
+  factory LooksFeel.fromJson(json) => LooksFeel(
         appAccent: json["app_accent"],
         showNotificationBar: json["show_notification_bar"],
         transparentNotificationBar: json["transparent_notification_bar"],
