@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
                 wall.wallpaper.value,
                 fit: BoxFit.cover,
                 height: Get.height,
+                width: Get.width,
               ),
             ),
           ),
