@@ -43,7 +43,13 @@ class MyApps extends GetxController {
 
   getWallpaper() async {
     var per = await permision.checkPermission();
-    if (!per) permision.requestPermission();
+    if (!per) {
+      permision
+          .requestPermission()
+          .then((value) => LauncherAssist.getWallpaper().then((a) {
+                wallpaper.value = a;
+              }));
+    }
     LauncherAssist.getWallpaper().then((a) {
       wallpaper.value = a;
     });
