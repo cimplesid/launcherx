@@ -35,16 +35,18 @@
 
 //TODO:change default if model changes
 
+import 'package:flutter/material.dart';
+
 const defaultSettings = {
   "app_drawer": {
     "drawerStyle": "",
-    "background_color": "",
+    "background_color": 0x00000000,
     "background_transparency": "",
     "icon_layout": {
       "size": 12,
       "isLabelOn": true,
       "fontSize": 12,
-      "color": "",
+      "color": 0x00000000,
       "shape": 0.0
     }
   },
@@ -52,8 +54,8 @@ const defaultSettings = {
     "app_accent": "",
     "show_notification_bar": false,
     "transparent_notification_bar": false,
-    "notification_bar_color": "",
-    "appsearch_bg_color": ""
+    "notification_bar_color": 0x0082E90C,
+    "appsearch_bg_color": 0xFF000000
   },
   "gesture_input": {"swipe_up": "", "swipe_down": "", "double_tap": ""},
   "backup_imports": {
@@ -98,7 +100,7 @@ class AppDrawer {
   });
 
   String drawerStyle;
-  String backgroundColor;
+  int backgroundColor;
   String backgroundTransparency;
   IconLayout iconLayout;
 
@@ -129,7 +131,7 @@ class IconLayout {
   int size;
   bool isLabelOn;
   int fontSize;
-  String color;
+  int color;
   double shape = 0.0;
 
   factory IconLayout.fromJson(json) => IconLayout(
@@ -201,8 +203,8 @@ class LooksFeel {
   String appAccent;
   bool showNotificationBar;
   bool transparentNotificationBar;
-  String notificationBarColor;
-  String appsearchBgColor;
+  int notificationBarColor;
+  int appsearchBgColor;
 
   factory LooksFeel.fromJson(json) => LooksFeel(
         appAccent: json["app_accent"],

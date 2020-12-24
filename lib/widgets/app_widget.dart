@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:launcher_assist/launcher_assist.dart';
 import 'package:launcherx/controllers/settings.dart';
+import 'package:launcherx/widgets/app_icon.dart';
 
 class AppWidget extends StatelessWidget {
   final appController;
@@ -15,30 +16,16 @@ class AppWidget extends StatelessWidget {
       _reqApp.add(
         GridTile(
           child: GestureDetector(
-            child: Container(
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                    settingController.setting.value.appDrawer.iconLayout.shape),
-                color: Colors.transparent,
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: app["icon"] != null ? MemoryImage(app["icon"]) : null,
-                ),
-              ),
+            child: AppIcon(
+              settingController: settingController,
+              image: app["icon"] != null ? (app["icon"]) : null,
             ),
             onTap: () => LauncherAssist.launchApp(app["package"]),
           ),
         ),
       );
     });
-    // child: CircleAvatar(
-    // backgroundImage:
 
-    // radius: 30.0,
-    // child: app["icon"] == null ? Text(app["label"][0]) : Text(""),
-    // ),
     return _reqApp;
   }
 

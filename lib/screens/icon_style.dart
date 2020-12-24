@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:launcherx/Utils/storage.dart';
 import 'package:launcherx/controllers/apps.dart';
 import 'package:launcherx/controllers/settings.dart';
+import 'package:launcherx/widgets/app_icon.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class IconStyle extends StatelessWidget {
   final MyApps wall = Get.find();
@@ -27,25 +29,41 @@ class IconStyle extends StatelessWidget {
               ),
               Positioned(
                 top: 100,
-                left: 100,
-                child: Row(
-                  children: [
-                    Obx(() => Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                settingController
-                                    .setting.value.appDrawer.iconLayout.shape),
-                            color: Get.theme.primaryColor,
-                          ),
-                          child: Icon(
-                            Icons.gavel_outlined,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                        )),
-                  ],
+                left: 10,
+                child: Container(
+                  width: Get.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      AppIcon(
+                        settingController: settingController,
+                        color: Get.theme.accentColor,
+                        child: Icon(
+                          Icons.gavel_outlined,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                      AppIcon(
+                        settingController: settingController,
+                        color: Get.theme.accentColor,
+                        child: Icon(
+                          MdiIcons.twitter,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                      AppIcon(
+                        settingController: settingController,
+                        color: Colors.green,
+                        child: Icon(
+                          MdiIcons.accountSettings,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
