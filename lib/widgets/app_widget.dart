@@ -5,9 +5,9 @@ import 'package:launcherx/controllers/settings.dart';
 import 'package:launcherx/widgets/app_icon.dart';
 
 class AppWidget extends StatelessWidget {
-  final appController;
-
   AppWidget({Key key, this.appController}) : super(key: key);
+
+  final appController;
   final SettingController settingController = Get.find();
 
   List _getAppWidgetList(var appList) {
