@@ -1,15 +1,36 @@
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:launcher_assist/launcher_assist.dart';
 import 'package:launcherx/Utils/permission_handler.dart';
 
 class MyApps extends GetxController {
   List apps = [];
+  RxList<Size> sizes = <Size>[].obs;
   RxList<dynamic> filteredApps = [].obs;
   var wallpaper = Uint8List(0).obs;
   var showWallaper = false.obs;
   get showSearchResult => (filteredApps.length > 0).obs;
+  get _biggestHeight => sizes.length > 0
+      ? getBiggestOne(sizes.map((element) => element.height).toList())
+      : 1.0;
+  get _biggestWidth => sizes.length > 0
+      ? getBiggestOne(sizes.map((element) => element.width).toList())
+      : 1.0;
+  get ration => getRatio(_biggestWidth, _biggestHeight);
+  getBiggestOne(list) {
+    var biggest = 0.0;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] > biggest) biggest = list[i];
+    }
+    return biggest;
+  }
+
+  getRatio(a, b) {
+    return (a / b);
+  }
+
   @override
   void onInit() async {
     super.onInit();
@@ -19,6 +40,10 @@ class MyApps extends GetxController {
 
   change(val) {
     showWallaper.value = val;
+  }
+
+  addSize(Size size) {
+    sizes.add(size);
   }
 
   void searchApp(String query) {

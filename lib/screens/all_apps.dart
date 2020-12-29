@@ -11,29 +11,33 @@ class AppsScreeen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: ListView(children: [
-        Row(
+      body: SafeArea(
+        child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Tooltip(
-                message: "back",
-                child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.red,
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Tooltip(
+                    message: "back",
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Expanded(child: SearchAppWidget(appController: appController)),
+              ],
             ),
-            Expanded(child: SearchAppWidget(appController: appController)),
+            Flexible(child: AppWidget(appController: appController)),
           ],
         ),
-        AppWidget(appController: appController),
-      ]),
+      ),
     );
   }
 }

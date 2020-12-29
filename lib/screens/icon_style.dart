@@ -8,7 +8,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class IconStyle extends StatelessWidget {
   final MyApps wall = Get.find();
-  final SettingController settingController = Get.find();
+  final SettingController settingController = Get.put(SettingController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +35,7 @@ class IconStyle extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+//TODO: change according to settings
                       AppIcon(
                         settingController: settingController,
                         color: Get.theme.accentColor,
@@ -68,34 +69,85 @@ class IconStyle extends StatelessWidget {
               ),
             ],
           ),
-          Card(
-            margin: EdgeInsets.all(8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Icon Shape"),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Wrap(
-                    spacing: 50,
-                    children: [
-                      _buildShapeTile(10),
-                      _buildShapeTile(0),
-                      _buildShapeTile(20),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: _buildShapeTile(40),
-                      ),
-                    ],
-                  ),
-                ],
+          myCustomCard([
+            Obx(
+              () => Slider(
+                min: 10,
+                max: 120,
+                label: 'Icon Size',
+                onChanged: (double value) {
+                  var settings = storageHelper.settings;
+                  storageHelper.settings.appDrawer.iconLayout.size =
+                      value.toInt();
+                  storageHelper.changeSettings(settings);
+                },
+                value:
+                    (settingController.setting.value.appDrawer.iconLayout.size)
+                        .toDouble(),
               ),
             ),
-          )
+            Obx(
+              () => SwitchListTile(
+                title: Text('Label'),
+                onChanged: (bool value) {
+                  var settings = storageHelper.settings;
+                  storageHelper.settings.appDrawer.iconLayout.isLabelOn = value;
+                  storageHelper.changeSettings(settings);
+                },
+                value: settingController
+                    .setting.value.appDrawer.iconLayout.isLabelOn,
+              ),
+            ),
+            Text('Font size'),
+            Obx(
+              () => Slider(
+                min: 10,
+                max: 25,
+                label: 'Font Size',
+                onChanged: settingController
+                        .setting.value.appDrawer.iconLayout.isLabelOn
+                    ? (double value) {
+                        var settings = storageHelper.settings;
+                        storageHelper.settings.appDrawer.iconLayout.fontSize =
+                            value.toInt();
+                        storageHelper.changeSettings(settings);
+                      }
+                    : null,
+                value: (settingController
+                        .setting.value.appDrawer.iconLayout.fontSize)
+                    .toDouble(),
+              ),
+            ),
+          ], label: 'Icon Size'),
+          myCustomCard([
+            SizedBox(height: 20),
+            Wrap(
+              spacing: 50,
+              children: [
+                _buildShapeTile(10),
+                _buildShapeTile(0),
+                _buildShapeTile(20),
+                Padding(
+                  padding: const EdgeInsets.only(top: 6),
+                  child: _buildShapeTile(40),
+                ),
+              ],
+            ),
+          ])
         ],
+      ),
+    );
+  }
+
+//TODO:make widget instead
+  myCustomCard(childern, {label = "Icon Shape"}) {
+    return Card(
+      margin: EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Text(label), ...childern]),
       ),
     );
   }

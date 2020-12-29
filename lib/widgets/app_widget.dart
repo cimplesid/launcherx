@@ -10,18 +10,16 @@ class AppWidget extends StatelessWidget {
   final appController;
   final SettingController settingController = Get.find();
 
-  List _getAppWidgetList(var appList) {
-    List<GridTile> _reqApp = [];
+  List<Widget> _getAppWidgetList(var appList) {
+    var _reqApp = [];
     appList.forEach((app) {
       _reqApp.add(
-        GridTile(
-          child: GestureDetector(
-            child: AppIcon(
-              settingController: settingController,
-              image: app["icon"] != null ? (app["icon"]) : null,
-            ),
-            onTap: () => LauncherAssist.launchApp(app["package"]),
+        GestureDetector(
+          child: AppIcon(
+            settingController: settingController,
+            image: app["icon"] != null ? (app["icon"]) : null,
           ),
+          onTap: () => LauncherAssist.launchApp(app["package"]),
         ),
       );
     });
@@ -31,7 +29,7 @@ class AppWidget extends StatelessWidget {
 
   Widget buildSearchResult() {
     if (!appController.showSearchResult.value) return SizedBox();
-    List<GridTile> _appList = _getAppWidgetList(appController.filteredApps);
+    List _appList = _getAppWidgetList(appController.filteredApps);
     return Container(
       color: Colors.grey.withOpacity(0.9),
       child: GridView.count(
@@ -46,23 +44,31 @@ class AppWidget extends StatelessWidget {
     );
   }
 
-  GridView buildApps() {
-    List<GridTile> _appList = _getAppWidgetList(appController.apps);
-    return GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 8,
-      mainAxisSpacing: 5,
-      childAspectRatio: 0.9,
-      crossAxisSpacing: 4,
-      physics: BouncingScrollPhysics(),
-      children: _appList,
+  buildApps() {
+    return GridView(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 8,
+        childAspectRatio: Get.width / Get.height,
+      ),
+      children: [
+        ...appController.apps.map(
+          (app) => InkWell(
+            child: AppIcon(
+              myApps: appController,
+              settingController: settingController,
+              image: app["icon"] != null ? (app["icon"]) : null,
+              label: app['label'],
+            ),
+            onTap: () => LauncherAssist.launchApp(app["package"]),
+          ),
+        )
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [buildApps(), Obx(() => buildSearchResult())],
-    );
+    return buildApps();
   }
 }

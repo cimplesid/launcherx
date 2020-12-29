@@ -35,8 +35,6 @@
 
 //TODO:change default if model changes
 
-import 'package:flutter/material.dart';
-
 const defaultSettings = {
   "app_drawer": {
     "drawerStyle": "",
