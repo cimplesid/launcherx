@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:launcherx/screens/icon_style.dart';
 import 'package:launcherx/widgets/my_tile.dart';
+import 'app_drawer.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -20,8 +20,7 @@ class SettingsScreen extends StatelessWidget {
                 MyTile(
                   wTitle: Text("App Drawer"),
                   subTitle: 'Drawerstyle, background color, and more',
-                  //TODO:navigate to another page where we have multiple option for drawer laout button and icon config and then navigate to this page
-                  onTap: () => Get.to(IconStyle()),
+                  onTap: () => Get.to(AppDrawer()),
                 ),
                 MyTile(
                   title: "Look and Feel",

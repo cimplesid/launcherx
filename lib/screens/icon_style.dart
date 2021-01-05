@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:launcherx/Utils/storage.dart';
 import 'package:launcherx/controllers/apps.dart';
 import 'package:launcherx/controllers/settings.dart';
+import 'package:launcherx/utils/macros.dart';
 import 'package:launcherx/widgets/app_icon.dart';
 
 class IconStyle extends StatelessWidget {
@@ -118,19 +119,6 @@ class IconStyle extends StatelessWidget {
             ),
           ])
         ],
-      ),
-    );
-  }
-
-//TODO:make widget instead
-  myCustomCard(childern, {label = "Icon Shape"}) {
-    return Card(
-      margin: EdgeInsets.all(8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text(label), ...childern]),
       ),
     );
   }
