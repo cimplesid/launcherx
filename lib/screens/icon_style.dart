@@ -4,10 +4,9 @@ import 'package:launcherx/Utils/storage.dart';
 import 'package:launcherx/controllers/apps.dart';
 import 'package:launcherx/controllers/settings.dart';
 import 'package:launcherx/widgets/app_icon.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class IconStyle extends StatelessWidget {
-  final MyApps wallPaperController = Get.find();
+  final MyApps appController = Get.find();
   final SettingController settingController = Get.put(SettingController());
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class IconStyle extends StatelessWidget {
             children: [
               Obx(
                 () => Image.memory(
-                  wallPaperController.wallpaper.value,
+                  appController.wallpaper.value,
                   fit: BoxFit.cover,
                   height: Get.height / 3,
                   width: Get.width,
@@ -35,34 +34,18 @@ class IconStyle extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-//TODO: change according to settings
-                      AppIcon(
-                        settingController: settingController,
-                        color: Get.theme.accentColor,
-                        child: Icon(
-                          Icons.gavel_outlined,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                      AppIcon(
-                        settingController: settingController,
-                        color: Get.theme.accentColor,
-                        child: Icon(
-                          MdiIcons.twitter,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
-                      AppIcon(
-                        settingController: settingController,
-                        color: Colors.green,
-                        child: Icon(
-                          MdiIcons.accountSettings,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                      ),
+                      //TODO: change according to settings
+                      for (var i = 0; i < 4; i++)
+                        Container(
+                          height: 100,
+                          child: AppIcon(
+                            settingController: settingController,
+                            image: appController.apps[i]["icon"] != null
+                                ? (appController.apps[i]["icon"])
+                                : null,
+                            label: appController.apps[i]['label'],
+                          ),
+                        )
                     ],
                   ),
                 ),
@@ -73,7 +56,7 @@ class IconStyle extends StatelessWidget {
             Obx(
               () => Slider(
                 min: 10,
-                max: 120,
+                max: 85,
                 label: 'Icon Size',
                 onChanged: (double value) {
                   var settings = storageHelper.settings;

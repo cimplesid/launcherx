@@ -8,7 +8,7 @@ import 'package:launcherx/screens/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
-  final wall = Get.put(MyApps());
+  final wallpaperController = Get.put(MyApps());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,12 +18,12 @@ class HomeScreen extends StatelessWidget {
             ondouble: () {
               launch('tel:');
             },
-            onPress: () => wall.change(false),
-            longpress: () => wall.change(true),
+            onPress: () => wallpaperController.change(false),
+            longpress: () => wallpaperController.change(true),
             onSwipeUp: () => Get.to(AppsScreeen()),
             child: Obx(
               () => Image.memory(
-                wall.wallpaper.value,
+                wallpaperController.wallpaper.value,
                 fit: BoxFit.cover,
                 height: Get.height,
                 width: Get.width,
@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           Obx(() {
-            if (wall.showWallaper.value)
+            if (wallpaperController.showWallaper.value)
               return Positioned(bottom: 0, child: bottomSheet());
             return SizedBox();
           })

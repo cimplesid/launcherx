@@ -5,7 +5,7 @@ import 'package:launcherx/controllers/settings.dart';
 
 class AppIcon extends StatelessWidget {
   final SettingController settingController;
-  final MyApps myApps;
+  final MyApps appController;
   final image;
   final Widget child;
   final Color color;
@@ -18,7 +18,7 @@ class AppIcon extends StatelessWidget {
       this.child,
       this.color,
       this.label,
-      this.myApps})
+      this.appController})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

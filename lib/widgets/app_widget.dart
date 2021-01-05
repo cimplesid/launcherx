@@ -55,7 +55,7 @@ class AppWidget extends StatelessWidget {
         ...appController.apps.map(
           (app) => InkWell(
             child: AppIcon(
-              myApps: appController,
+              appController: appController,
               settingController: settingController,
               image: app["icon"] != null ? (app["icon"]) : null,
               label: app['label'],
