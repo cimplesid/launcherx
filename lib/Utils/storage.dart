@@ -3,7 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:launcherx/controllers/settings.dart';
 import 'package:launcherx/models/models.dart';
 
-class StorageHelper {
+class _StorageHelper {
   final _currrentSettings = 'currentSettings';
   Settings settings;
   final SettingController settingController = Get.put(SettingController());
@@ -28,4 +28,4 @@ class StorageHelper {
   }
 }
 
-final storageHelper = StorageHelper();
+final storageHelper = _StorageHelper();

@@ -1,6 +1,6 @@
 import 'package:permission_handler/permission_handler.dart';
 
-class PermissionHandlerX {
+class _PermissionHandlerX {
   PermissionStatus permissionStatus = PermissionStatus.undetermined;
   Permission permission = Permission.storage;
 
@@ -25,4 +25,4 @@ class PermissionHandlerX {
   }
 }
 
-final permision = PermissionHandlerX();
+final permision = _PermissionHandlerX();

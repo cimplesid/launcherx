@@ -7,7 +7,7 @@ import 'package:launcherx/widgets/app_icon.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class IconStyle extends StatelessWidget {
-  final MyApps wall = Get.find();
+  final MyApps wallPaperController = Get.find();
   final SettingController settingController = Get.put(SettingController());
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class IconStyle extends StatelessWidget {
             children: [
               Obx(
                 () => Image.memory(
-                  wall.wallpaper.value,
+                  wallPaperController.wallpaper.value,
                   fit: BoxFit.cover,
                   height: Get.height / 3,
                   width: Get.width,

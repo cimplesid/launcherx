@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:launcherx/Utils/swipe_detector.dart';
+import 'package:launcherx/widgets/swipe_detector.dart';
 import 'package:launcherx/controllers/apps.dart';
 import 'package:launcherx/widgets/col_button.dart';
 import 'package:launcherx/screens/all_apps.dart';
