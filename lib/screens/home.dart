@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:launcherx/widgets/swipe_detector.dart';
 import 'package:launcherx/controllers/apps.dart';
@@ -69,6 +70,11 @@ class HomeScreen extends StatelessWidget {
               ColButton(
                 title: 'Widgets',
                 icon: Icons.widgets,
+                onTap: () async {
+                  const platform = const MethodChannel('launcherx');
+                  final int result =
+                      await platform.invokeMethod('lock');
+                },
               ),
             ],
           ),
