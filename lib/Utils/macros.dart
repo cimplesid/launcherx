@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-myCustomCard(childern, {label = "Icon Shape"}) {
+Card myCustomCard(childern, {label = "Icon Shape"}) {
   return Card(
     margin: EdgeInsets.all(8.0),
     child: Padding(
@@ -10,4 +11,9 @@ myCustomCard(childern, {label = "Icon Shape"}) {
           children: [Text(label), ...childern]),
     ),
   );
+}
+
+Future lockScreen() async {
+  const platform = const MethodChannel('launcherx');
+  return await platform.invokeMethod('lock');
 }
