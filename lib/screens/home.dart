@@ -72,8 +72,8 @@ class HomeScreen extends StatelessWidget {
                 icon: Icons.widgets,
                 onTap: () async {
                   const platform = const MethodChannel('launcherx');
-                  final int result =
-                      await platform.invokeMethod('lock');
+                  final result = await platform.invokeMethod('lock');
+                  print(result);
                 },
               ),
             ],

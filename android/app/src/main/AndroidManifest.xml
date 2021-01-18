@@ -26,18 +26,19 @@
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <receiver
-             android :name= ".DeviceAdmin"
-             android :label= "launcherx"
-            android :permission= "android.permission.BIND_DEVICE_ADMIN" >
-         <meta-data
-            android :name= "android.app.device_admin"
-            android :resource= "@xml/policies" />
-         <intent-filter>
-            <action android :name= "android.app.action.DEVICE_ADMIN_ENABLED" />
-         </intent-filter>
-      </receiver>
+
         </activity>
+       <receiver
+           android:name= ".DeviceAdmin"
+           android:label= "launcherx"
+           android:permission= "android.permission.BIND_DEVICE_ADMIN" >
+           <meta-data
+               android:name= "android.app.device_admin"
+               android:resource= "@xml/policies" />
+           <intent-filter>
+               <action android:name= "android.app.action.DEVICE_ADMIN_ENABLED" />
+           </intent-filter>
+       </receiver>
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />

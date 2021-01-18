@@ -11,25 +11,24 @@ import io.flutter.plugin.common.MethodChannel
 
 
 class MainActivity: FlutterActivity() {
-    private val CHANNEL = "launcherx"
+    private val channel = "launcherx"
     var deviceManger: DevicePolicyManager? = null
     var compName: ComponentName? = null
-    protected val REQUEST_ENABLE = 0
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler {
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, channel).setMethodCallHandler {
             call, result ->
             if (call.method == "lock") {
-                print("called")
                 deviceManger  = getSystemService(Context.DEVICE_POLICY_SERVICE ) as DevicePolicyManager?;
-                compName =  ComponentName( this, "DeviceAdmin") ;
+                compName =  ComponentName( this, DeviceAdmin().javaClass) ;
                 var active = deviceManger?.isAdminActive(compName!!)
                 if (!active!!) {
                     val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
                     intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, compName)
-                    startActivityForResult(intent, REQUEST_ENABLE)
+                    startActivityForResult(intent, 0)
+                    active = deviceManger?.isAdminActive(compName!!)
                 } else {
                     deviceManger?.lockNow()
                 }
@@ -40,4 +39,6 @@ class MainActivity: FlutterActivity() {
             }
         }
     }
+
+
 }

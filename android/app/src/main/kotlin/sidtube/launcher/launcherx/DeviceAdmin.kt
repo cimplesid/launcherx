@@ -5,16 +5,4 @@ import android.content.Context
 import android.content.Intent
 
 class DeviceAdmin : DeviceAdminReceiver() {
-    override fun onEnabled(context: Context, intent: Intent) {
-        super.onEnabled(context, intent)
-        print("enavled")
-        //      Toast. makeText (context , "Enabled" , Toast. LENGTH_SHORT ).show() ;
-    }
-
-    override fun onDisabled(context: Context, intent: Intent) {
-        super.onDisabled(context, intent)
-        print("Disabled")
-
-        //      Toast. makeText (context , "Disabled" , Toast. LENGTH_SHORT ).show() ;
-    }
 }
